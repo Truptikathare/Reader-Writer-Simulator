@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader Writer Synchronization Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <div class="tag">OPERATING SYSTEM PROJECT</div>
+        <h1>Reader–Writer Simulator</h1>
+        <p>Visualizing Process Synchronization and Shared Resources</p>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="stats">
+        <div class="stat-card">
+            <span>Total Readers</span>
+            <strong id="readerCount">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Active Readers</span>
+            <strong id="activeCount">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Write Operations</span>
+            <strong id="writeCount">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Pending Requests</span>
+            <strong id="pendingCount">0</strong>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-heading">
+            <div>
+                <h2>Process Monitor</h2>
+                <p>Live status of readers and writer</p>
+            </div>
+            <span class="live-indicator">LIVE SIMULATION</span>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-card reader-card" id="reader1">
+                <div class="process-icon">R1</div>
+                <div>
+                    <h3>Reader 1</h3>
+                    <p class="status">Idle</p>
+                </div>
+            </div>
+
+            <div class="process-card reader-card" id="reader2">
+                <div class="process-icon">R2</div>
+                <div>
+                    <h3>Reader 2</h3>
+                    <p class="status">Idle</p>
+                </div>
+            </div>
+
+            <div class="process-card reader-card" id="reader3">
+                <div class="process-icon">R3</div>
+                <div>
+                    <h3>Reader 3</h3>
+                    <p class="status">Idle</p>
+                </div>
+            </div>
+
+            <div class="process-card writer-card" id="writer">
+                <div class="process-icon">W</div>
+                <div>
+                    <h3>Writer</h3>
+                    <p class="status">Idle</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="panel resource-panel">
+        <div class="section-heading">
+            <div>
+                <h2>Shared Resource</h2>
+                <p>Data accessed by readers and writer</p>
+            </div>
+            <span id="resourceBadge" class="resource-badge">AVAILABLE</span>
+        </div>
+
+        <div class="resource-box" id="resourceBox">
+            <div class="database-icon">DB</div>
+            <h3>Shared Database</h3>
+            <div class="data-value" id="sharedData">100</div>
+            <p>Current Shared Data Value</p>
+            <p id="resourceMessage">Waiting for a request</p>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-heading">
+            <div>
+                <h2>Simulation Controls</h2>
+                <p>Send read and write requests</p>
+            </div>
+        </div>
+
+        <div class="control-grid">
+            <button class="read-btn" id="read1Btn">
+                Request Read – R1
+            </button>
+
+            <button class="read-btn" id="read2Btn">
+                Request Read – R2
+            </button>
+
+            <button class="read-btn" id="read3Btn">
+                Request Read – R3
+            </button>
+
+            <button class="write-btn" id="writeBtn">
+                Request Write
+            </button>
+        </div>
+
+        <div class="settings">
+            <label for="speed">Operation Duration</label>
+            <select id="speed">
+                <option value="6000">Slow – 6 seconds</option>
+                <option value="4000" selected>Normal – 4 seconds</option>
+                <option value="2000">Fast – 2 seconds</option>
+            </select>
+
+            <button class="reset-btn" id="resetBtn">
+                Reset Simulation
+            </button>
+        </div>
+
+        <p id="message">Welcome! Select a reader or writer to begin.</p>
+    </section>
+
+    <section class="panel">
+        <div class="section-heading">
+            <div>
+                <h2>Request Queue</h2>
+                <p>Requests waiting for resource access</p>
+            </div>
+            <span id="queueCount" class="resource-badge">0 REQUESTS</span>
+        </div>
+
+        <div id="queue" class="queue-area">
+            No pending requests
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="section-heading">
+            <div>
+                <h2>Activity History</h2>
+                <p>Track every synchronization operation</p>
+            </div>
+        </div>
+
+        <div class="log-area" id="log">
+            <p class="empty-log">No activity yet.</p>
+        </div>
+    </section>
+
+    <section class="panel rules">
+        <h2>Synchronization Rules</h2>
+        <ul>
+            <li>Multiple readers can access shared data simultaneously.</li>
+            <li>Only one writer can access the resource at a time.</li>
+            <li>Readers cannot read while a writer is writing.</li>
+            <li>A writer must wait until all active readers finish.</li>
+            <li>Requests are handled fairly using a FIFO queue.</li>
+        </ul>
+    </section>
+
+</main>
+
+<footer>
+    <p>Reader–Writer Problem | Operating Systems Project</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
